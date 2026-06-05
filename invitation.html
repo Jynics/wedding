@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <!-- 감성적인 명조체(Noto Serif)와 깔끔한 본문용 고딕체(Pretendard) 적용 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Pretendard:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* 컬러 및 기본 테마 설정 */
+        :root {
+            --bg-color: #FCFBF9; /* 따뜻하고 아주 밝은 아이보리 배경 */
+            --text-main: #2C2C2C; /* 짙은 차콜색 (부드러운 검정) */
+            --text-sub: #7A7A7A;  /* 세련된 회색 */
+            --accent: #8B7D72;    /* 뮤트된 베이지/브라운 포인트 컬러 */
+            --border: #EAE6DF;    /* 연한 테두리 선 */
+        }
+
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background-color: #e5e5e5; /* PC에서 볼 때 바깥 여백 색상 */
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 0; 
+            display: flex;
+            justify-content: center; /* 화면 중앙 정렬 */
+        }
+
+        /* 모바일 화면 사이즈 고정 */
+        .wrap { 
+            width: 100%; 
+            max-width: 430px; /* 최신 스마트폰 비율에 맞춘 폭 */
+            background-color: var(--bg-color); 
+            box-shadow: 0 0 20px rgba(0,0,0,0.08); 
+            overflow: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* 폰트 클래스 */
+        .serif { font-family: 'Noto Serif KR', serif; }
+        
+        /* 각 섹션 여백 및 애니메이션 */
+        section {
+            padding: 80px 30px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 메인 커버 섹션 */
+        .cover { padding: 0; position: relative; }
+        .cover-img {
+            width: 100%;
+            height: 100vh;
+            max-height: 800px;
+            background-color: #DCD8D3;
+            /* 아래 url에 실제 웨딩 사진 링크를 넣으세요 */
+            background-image: url('https://via.placeholder.com/430x800/DCD8D3/ffffff?text=Main+Photo');
+            background-size: cover;
+            background-position: center;
+        }
+        .cover-text {
+            position: absolute;
+            top: 12%;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.15);
+        }
+        .cover-text h1 {
+            font-weight: 300;
+            font-size: 1.7rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 15px;
+        }
+        .cover-text p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* 디자인 요소: 세로선 디바이더 */
+        .divider {
+            width: 1px;
+            height: 50px;
+            background-color: var(--border);
+            margin: 0 auto;
+        }
+
+        /* 인사말 섹션 */
+        .greeting .title {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 40px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .greeting .message {
+            font-size: 0.95rem;
+            line-height: 2.4;
+            color: var(--text-sub);
+            margin-bottom: 60px;
+        }
+        .parents {
+            font-size: 1.05rem;
+            line-height: 2.2;
+        }
+        .parents span {
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+
+        /* 인포메이션 (날짜/장소) */
+        .info h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+        .info-detail {
+            font-size: 0.95rem;
+            line-height: 2;
+            color: var(--text-sub);
+            margin-bottom: 40px;
+        }
+
+        /* 미니멀 스타일 버튼 (직각/라인 위주) */
+        .btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
+        .btn {
+            flex: 1;
+            padding: 16px 0;
+            border: 1px solid var(--border);
+            background-color: #fff;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .btn:hover { background-color: var(--border); }
+        .btn-full { width: 100%; }
+
+        /* 마음 전하실 곳 (계좌번호) */
+        .account-area { text-align: left; margin-top: 40px; }
+        .account-box {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .account-title { 
+            font-weight: 500; 
+            margin-bottom: 15px; 
+            color: var(--accent); 
+        }
+        .account-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+        .copy-btn {
+            background: #F4F3F0;
+            border: none;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        
+        <!-- 커버 영역 -->
+        <section class="cover visible">
+            <div class="cover-img"></div>
+            <div class="cover-text serif">
+                <h1>권진형 & 이다영</h1>
+                <p>2026. 10. 24. SAT 12:00</p>
+            </div>
+        </section>
+
+        <!-- 인사말 영역 -->
+        <section class="greeting">
+            <div class="title serif">Invitation</div>
+            <div class="message serif">
+                두 사람이 만나 하나의 길을<br>
+                함께 걸어가려 합니다.<br><br>
+                따뜻한 마음으로 곁에서 지켜봐 주신 분들을<br>
+                저희의 새로운 시작에 초대합니다.<br>
+                귀한 걸음 하시어 축복해 주시면<br>
+                더없는 기쁨으로 간직하겠습니다.
+            </div>
+            <div class="parents serif">
+                <span>권혁준 · 최정윤 의 아들</span> 권진형<br>
+                <span>이종우 · 윤경미 의 딸</span> 이다영
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 예식장 정보 영역 -->
+        <section class="info">
+            <h2 class="serif">오시는 길</h2>
+            <div class="info-detail">
+                <strong>호텔수성 라포레</strong><br>
+                대구 수성구 용학로 106-7<br>
+            </div>
+            
+            <div class="btn-group">
+                <a href="#" class="btn">네이버 지도</a>
+                <a href="#" class="btn">카카오 맵</a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 마음 전하실 곳 영역 -->
+        <section class="info">
+            <h2 class="serif">마음 전하실 곳</h2>
+            <div class="info-detail">
+                참석이 어려우신 분들을 위해<br>계좌번호를 기재하였습니다.<br>너른 양해 부탁드립니다.
+            </div>
+
+            <div class="account-area">
+                <div class="account-box">
+                    <div class="account-title serif">신랑측</div>
+                    <div class="account-row">
+                        <div>
+                            OO은행 123-456-7890<br>예금주 : 권혁준
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('1234567890')">복사</button>
+                    </div>
+                </div>
+
+                <div class="account-box">
+                    <div class="account-title serif">신부측</div>
+                    <div class="account-row">
+                        <div>
+                            OO은행 098-765-4321<br>예금주 : 이종우
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('0987654321')">복사</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 스크롤 애니메이션 및 복사 기능 스크립트 -->
+    <script>
+        // 스크롤 시 섹션 부드럽게 나타나는 애니메이션
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('section:not(.cover)').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // 계좌번호 복사 기능
+        function copyToClipboard(val) {
+            navigator.clipboard.writeText(val).then(() => {
+                alert('계좌번호가 복사되었습니다.');
+            }).catch(err => {
+                alert('복사에 실패했습니다. 직접 입력해주세요.');
+            });
+        }
+    </script>
+</body>
+</html>
