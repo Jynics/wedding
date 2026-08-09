@@ -1,287 +1,676 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
-    <!-- 감성적인 명조체(Noto Serif)와 깔끔한 본문용 고딕체(Pretendard) 적용 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Pretendard:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        /* 컬러 및 기본 테마 설정 */
-        :root {
-            --bg-color: #FCFBF9; /* 따뜻하고 아주 밝은 아이보리 배경 */
-            --text-main: #2C2C2C; /* 짙은 차콜색 (부드러운 검정) */
-            --text-sub: #7A7A7A;  /* 세련된 회색 */
-            --accent: #8B7D72;    /* 뮤트된 베이지/브라운 포인트 컬러 */
-            --border: #EAE6DF;    /* 연한 테두리 선 */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>권진형 & 이다영 모바일 청첩장</title>
+  
+  <!-- Pretendard 웹 폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- Swiper.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-        body { 
-            font-family: 'Pretendard', sans-serif; 
-            background-color: #e5e5e5; /* PC에서 볼 때 바깥 여백 색상 */
-            color: var(--text-main); 
-            margin: 0; 
-            padding: 0; 
-            display: flex;
-            justify-content: center; /* 화면 중앙 정렬 */
-        }
+  <style>
+    /* 1. Global Reset & Fonts */
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #F4F4F5;
+      color: #27272A;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        /* 모바일 화면 사이즈 고정 */
-        .wrap { 
-            width: 100%; 
-            max-width: 430px; /* 최신 스마트폰 비율에 맞춘 폭 */
-            background-color: var(--bg-color); 
-            box-shadow: 0 0 20px rgba(0,0,0,0.08); 
-            overflow: hidden;
-            padding-bottom: 80px;
-        }
+    /* 2. Mobile Container Setup */
+    .mobile-container {
+      width: 100%;
+      max-width: 430px;
+      background-color: #FFFFFF;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding-bottom: 80px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
 
-        /* 폰트 클래스 */
-        .serif { font-family: 'Noto Serif KR', serif; }
-        
-        /* 각 섹션 여백 및 애니메이션 */
-        section {
-            padding: 80px 30px;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-        }
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* 3. Scroll Fade Animation */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      will-change: opacity, transform;
+    }
+    .fade-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        /* 메인 커버 섹션 */
-        .cover { padding: 0; position: relative; }
-        .cover-img {
-            width: 100%;
-            height: 100vh;
-            max-height: 800px;
-            background-color: #DCD8D3;
-            /* 아래 url에 실제 웨딩 사진 링크를 넣으세요 */
-            background-image: url('https://via.placeholder.com/430x800/DCD8D3/ffffff?text=Main+Photo');
-            background-size: cover;
-            background-position: center;
-        }
-        .cover-text {
-            position: absolute;
-            top: 12%;
-            width: 100%;
-            text-align: center;
-            color: #fff;
-            text-shadow: 0 2px 15px rgba(0,0,0,0.15);
-        }
-        .cover-text h1 {
-            font-weight: 300;
-            font-size: 1.7rem;
-            letter-spacing: 0.15em;
-            margin-bottom: 15px;
-        }
-        .cover-text p {
-            font-size: 0.95rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-        }
+    section { padding: 0 28px; text-align: center; }
 
-        /* 디자인 요소: 세로선 디바이더 */
-        .divider {
-            width: 1px;
-            height: 50px;
-            background-color: var(--border);
-            margin: 0 auto;
-        }
+    /* 4. Typography & UI Components (기존 border-radius 복원) */
+    .section-en-title {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: #A1A1AA;
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .section-kr-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #18181B;
+      letter-spacing: -0.02em;
+    }
 
-        /* 인사말 섹션 */
-        .greeting .title {
-            font-size: 0.9rem;
-            color: var(--accent);
-            margin-bottom: 40px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-        .greeting .message {
-            font-size: 0.95rem;
-            line-height: 2.4;
-            color: var(--text-sub);
-            margin-bottom: 60px;
-        }
-        .parents {
-            font-size: 1.05rem;
-            line-height: 2.2;
-        }
-        .parents span {
-            color: var(--text-sub);
-            font-size: 0.85rem;
-            margin-right: 8px;
-        }
+    /* 일반 UI 박스 모서리 둥글게 복원 */
+    .box-soft {
+      background-color: #FBFBFB;
+      border: 1px solid #F0F0F0;
+      border-radius: 12px;
+      padding: 28px 20px;
+    }
 
-        /* 인포메이션 (날짜/장소) */
-        .info h2 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            font-weight: 400;
-            color: var(--text-main);
-        }
-        .info-detail {
-            font-size: 0.95rem;
-            line-height: 2;
-            color: var(--text-sub);
-            margin-bottom: 40px;
-        }
+    /* 사진 박스만 직각 사각형 유지 */
+    .placeholder-box {
+      background-color: #FAFAFA;
+      border: 1px solid #E4E4E7;
+      border-radius: 0 !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #A1A1AA;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      overflow: hidden;
+    }
 
-        /* 미니멀 스타일 버튼 (직각/라인 위주) */
-        .btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
-        .btn {
-            flex: 1;
-            padding: 16px 0;
-            border: 1px solid var(--border);
-            background-color: #fff;
-            color: var(--text-main);
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.3s;
-        }
-        .btn:hover { background-color: var(--border); }
-        .btn-full { width: 100%; }
+    /* 버튼 모서리 둥글게 복원 */
+    .btn-minimal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border: 1px solid #E4E4E7;
+      border-radius: 9999px;
+      background-color: #FFFFFF;
+      color: #52525B;
+      font-size: 12px;
+      font-weight: 400;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+    .btn-minimal:active {
+      background-color: #F4F4F5;
+    }
 
-        /* 마음 전하실 곳 (계좌번호) */
-        .account-area { text-align: left; margin-top: 40px; }
-        .account-box {
-            background-color: #fff;
-            border: 1px solid var(--border);
-            padding: 20px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-        .account-title { 
-            font-weight: 500; 
-            margin-bottom: 15px; 
-            color: var(--accent); 
-        }
-        .account-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            color: var(--text-sub);
-            line-height: 1.5;
-        }
-        .copy-btn {
-            background: #F4F3F0;
-            border: none;
-            padding: 8px 14px;
-            font-size: 0.8rem;
-            color: var(--text-main);
-            cursor: pointer;
-        }
-    </style>
+    /* Aspect Ratios */
+    .aspect-3-4 { aspect-ratio: 3 / 4; }
+    .aspect-4-3 { aspect-ratio: 4 / 3; }
+    .aspect-16-10 { aspect-ratio: 16 / 10; }
+
+    /* Calendar & D-Day */
+    .calendar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+    .calendar-month {
+      font-size: 32px;
+      font-weight: 500;
+      color: #18181B;
+      line-height: 1;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 16px 14px;
+      font-size: 13.5px;
+      color: #3F3F46;
+      max-width: 260px;
+      margin: 0 auto;
+      font-weight: 400;
+      text-align: center;
+    }
+    .calendar-grid .highlight {
+      font-weight: 600;
+      color: #18181B;
+      position: relative;
+      display: inline-block;
+    }
+    .calendar-grid .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #18181B;
+    }
+
+    .dday-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .dday-timer {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: #18181B;
+    }
+    .dday-subtitle {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: #71717A;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    /* Swiper Customization */
+    .swiper {
+      padding-bottom: 28px !important;
+    }
+    .swiper-pagination {
+      bottom: 0 !important;
+    }
+    .swiper-pagination-bullet {
+      width: 6px;
+      height: 6px;
+      background: #D4D4D8;
+      opacity: 1;
+      border-radius: 50%;
+    }
+    .swiper-pagination-bullet-active {
+      background: #18181B !important;
+    }
+
+    /* Accordion 둥근 모서리 복원 */
+    details {
+      background-color: #FBFBFB;
+      border: 1px solid #F0F0F0;
+      border-radius: 12px;
+      text-align: left;
+      overflow: hidden;
+    }
+    summary {
+      padding: 18px 20px;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #27272A;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .account-list {
+      padding: 18px 20px;
+      border-top: 1px solid #F4F4F5;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 12.5px;
+      color: #52525B;
+      background-color: #FFFFFF;
+    }
+    .account-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Modal 둥근 모서리 복원 */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 24px;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
-    <div class="wrap">
+
+  <div class="mobile-container">
+
+    <!-- 1. 메인 커버 -->
+    <section class="fade-section" style="padding-top: 36px;">
+      <div class="placeholder-box aspect-3-4" style="width: 100%; margin-bottom: 28px;">
+        이미지 첨부 - 메인 커버 사진
+      </div>
+      <p style="font-size: 13.5px; color: #18181B; font-weight: 400;">진형 & 다영</p>
+      <p style="font-size: 13.5px; color: #71717A; margin-top: 8px; font-weight: 400;">2026년 10월 24일 토요일 오후 1시</p>
+      <p style="font-size: 13.5px; color: #71717A; margin-top: 3px; font-weight: 400;">호텔수성 라포레</p>
+    </section>
+
+    <!-- 2. 초대합니다 -->
+    <section class="fade-section">
+      <div class="box-soft" style="display: flex; flex-direction: column; gap: 10px;">
+        <p class="section-en-title">INVITATION</p>
+        <h2 class="section-kr-title" style="font-size: 17px; font-weight: 500; margin-bottom: 8px;">초대합니다</h2>
+        <p style="font-size: 13px; color: #52525B; line-height: 1.85; font-weight: 400;">
+          함께한 시간보다 더 오랜 시간을 함께하려합니다.<br>
+          같은 길을 걸어온 이들의 온기와<br>
+          걸어갈 이들의 설렘 속에서<br>
+          저희 두 사람이 다가갈 날들을 축복해 주세요.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. 혼주 정보 -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #52525B; font-weight: 400;">
+      <p>권혁준 · 최정원의 장남 <strong style="color: #18181B; font-weight: 600; margin-left: 2px;">권진형</strong></p>
+      <p>이종우 · 윤경미의 장녀 <strong style="color: #18181B; font-weight: 600; margin-left: 2px;">이다영</strong></p>
+    </section>
+
+    <!-- 4. 달력 & D-Day 카운트다운 -->
+    <section class="calendar-container fade-section">
+      <div class="calendar-month">10</div>
+      
+      <div class="calendar-grid">
+        <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span>
+        <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span class="highlight">24</span>
+      </div>
+
+      <div class="dday-wrapper">
+        <div id="dday-timer" class="dday-timer">00 : 00 : 00 : 00</div>
+        <p class="dday-subtitle">DAYS UNTIL THE WEDDING</p>
+      </div>
+    </section>
+
+    <!-- 5. 오시는 길 -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 20px;">
+      <div style="margin-bottom: 48px;">
+        <p style="font-size: 13.5px; color: #18181B; font-weight: 400;">2026년 10월 24일 토요일 오후 1시</p>
+        <p style="font-size: 13.5px; color: #18181B; font-weight: 400; margin-top: 3px;">호텔수성 PH층 라포레</p>
+      </div>
+
+      <div>
+        <p class="section-en-title">LOCATION</p>
+        <h3 class="section-kr-title">오시는 길</h3>
+      </div>
+
+      <!-- 지도 박스 (모서리 둥글게 복원) -->
+      <div style="width: 100%; height: 210px; border: 1px solid #E4E4E7; border-radius: 8px; overflow: hidden;">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.81056581179!2d128.6256285!3d35.8290947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35660c6a58133efb%3A0xda5ebf7bb25dfb4a!2z7Iic7ISx6rWsIOi9qWhhbmcxMDYtNw!5e0!3m2!1sko!2skr!4v1700000000000" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <!-- 지도 버튼 -->
+      <div style="display: flex; justify-content: center; gap: 8px;">
+        <a href="https://map.naver.com/v5/search/%ED%98%B8%ED%85%B0%EC%88%98%EC%84%B1" target="_blank" class="btn-minimal">네이버지도</a>
+        <a href="https://map.kakao.com/link/search/%ED%98%B8%ED%85%B0%EC%88%98%EC%84%B1" target="_blank" class="btn-minimal">카카오맵</a>
+        <a href="https://m.tmap.co.kr/search.do?keyword=%ED%98%B8%ED%85%B0%EC%88%98%EC%84%B1" target="_blank" class="btn-minimal">티맵</a>
+      </div>
+
+      <!-- 상세 안내 -->
+      <div style="text-align: left; font-size: 12.5px; color: #52525B; border-top: 1px solid #F4F4F5; padding-top: 20px; display: flex; flex-direction: column; gap: 12px; font-weight: 400; line-height: 1.6;">
+        <div>
+          <strong style="color: #18181B; font-weight: 500; display: block; margin-bottom: 2px;">지상철</strong>
+          3호선 수성못역 하차 (도보 15분)
+        </div>
+        <div>
+          <strong style="color: #18181B; font-weight: 500; display: block; margin-bottom: 2px;">버스</strong>
+          <p style="padding-left: 6px;">· 호텔수성 하차 : 401, 410-1</p>
+          <p style="padding-left: 6px;">· 불교한방병원 하차 : 수성1-1 (도보 7분)</p>
+          <p style="padding-left: 6px;">· TBC방송국 앞 하차 (도보 15분) : 204, 814, 수성1-1, 수성3-1, 급행3</p>
+        </div>
+        <div>
+          <strong style="color: #18181B; font-weight: 500; display: block; margin-bottom: 2px;">주차</strong>
+          식장 내 무료 주차 3시간
+        </div>
+        <div>
+          <strong style="color: #18181B; font-weight: 500; display: block; margin-bottom: 2px;">주소</strong>
+          대구광역시 수성구 용학로 106-7 호텔수성 수성스퀘어 (053-770-5555)
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 하객버스 안내 -->
+    <section class="fade-section">
+      <div style="margin-bottom: 14px;">
+        <p class="section-en-title">SHUTTLE BUS</p>
+        <h3 class="section-kr-title">하객버스 안내</h3>
+      </div>
+
+      <div class="swiper busSwiper" style="width: 100%;">
+        <div class="swiper-wrapper">
+          
+          <div class="swiper-slide">
+            <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
+              <div>
+                <p style="font-size: 11px; color: #A1A1AA; font-weight: 400; margin-bottom: 2px;">1호차</p>
+                <h4 style="font-size: 15px; font-weight: 600; color: #18181B;">하객버스 안내</h4>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 16px; font-size: 12.5px; color: #3F3F46; line-height: 1.7; font-weight: 400;">
+                <div>
+                  <p style="font-weight: 500; color: #18181B; margin-bottom: 4px;">대전 → 대구 (가는편)</p>
+                  <p style="color: #71717A;">탑승 장소: 한국원자력안전기술원</p>
+                  <p style="color: #71717A;">출발 시간: 오전 10시 (오후 12시 도착 예정)</p>
+                </div>
+                <div>
+                  <p style="font-weight: 500; color: #18181B; margin-bottom: 4px;">대구 → 대전 (오는편)</p>
+                  <p style="color: #71717A;">탑승 장소: 호텔수성</p>
+                  <p style="color: #71717A;">출발 시간: 오후 3시 (오후 5시 도착 예정)</p>
+                </div>
+              </div>
+
+              <button onclick="openModal('이미지 첨부 - 하객버스 1 탑승위치 약도')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">
+                탑승 위치 안내 보기
+              </button>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
+              <div>
+                <p style="font-size: 11px; color: #A1A1AA; font-weight: 400; margin-bottom: 2px;">2호차</p>
+                <h4 style="font-size: 15px; font-weight: 600; color: #18181B;">하객버스 안내</h4>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 16px; font-size: 12.5px; color: #3F3F46; line-height: 1.7; font-weight: 400;">
+                <div>
+                  <p style="font-weight: 500; color: #18181B; margin-bottom: 4px;">대전 → 대구 (가는편)</p>
+                  <p style="color: #71717A;">탑승 장소: 한국원자력안전기술원</p>
+                  <p style="color: #71717A;">출발 시간: 오전 10시 (오후 12시 도착 예정)</p>
+                </div>
+                <div>
+                  <p style="font-weight: 500; color: #18181B; margin-bottom: 4px;">대구 → 대전 (오는편)</p>
+                  <p style="color: #71717A;">탑승 장소: 호텔수성</p>
+                  <p style="color: #71717A;">출발 시간: 오후 3시 (오후 5시 도착 예정)</p>
+                </div>
+              </div>
+
+              <button onclick="openModal('이미지 첨부 - 하객버스 2 탑승위치 약도')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">
+                탑승 위치 안내 보기
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination bus-pagination"></div>
+      </div>
+    </section>
+
+    <!-- 7. 안내사항 -->
+    <section class="fade-section">
+      <div style="margin-bottom: 14px;">
+        <p class="section-en-title">INFORMATION</p>
+        <h3 class="section-kr-title">안내사항</h3>
+      </div>
+
+      <div class="swiper infoSwiper" style="width: 100%;">
+        <div class="swiper-wrapper">
+          
+          <div class="swiper-slide">
+            <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
+              <div>
+                <p style="font-size: 11px; color: #A1A1AA; font-weight: 400; margin-bottom: 2px;">01</p>
+                <h4 style="font-size: 15px; font-weight: 600; color: #18181B;">식사 안내</h4>
+              </div>
+              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8; font-weight: 400;">
+                예식 후 식사는 호텔수성 지하 1층 뷔페에서 준비되어 있습니다.<br>편안한 시간 보내시길 바랍니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
+              <div>
+                <p style="font-size: 11px; color: #A1A1AA; font-weight: 400; margin-bottom: 2px;">02</p>
+                <h4 style="font-size: 15px; font-weight: 600; color: #18181B;">화환 안내</h4>
+              </div>
+              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8; font-weight: 400;">
+                화환은 마음만 감사히 받겠습니다.<br>소중한 걸음 해주셔서 감사합니다.
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination info-pagination"></div>
+      </div>
+    </section>
+
+    <!-- 8. 마음 전하실 곳 -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="margin-bottom: 2px;">
+        <p class="section-en-title">THANKS TO</p>
+        <h3 class="section-kr-title" style="font-size: 16px;">마음 전하실 곳</h3>
+      </div>
+      
+      <details>
+        <summary>
+          <span>신랑측 계좌정보</span>
+          <span style="font-size: 10px; color: #A1A1AA;">▼</span>
+        </summary>
+        <div class="account-list">
+          <div class="account-item">
+            <span>부: OO은행 123-456-78901 (권혁준)</span>
+            <button onclick="copyText('123-456-78901')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button>
+          </div>
+          <div class="account-item">
+            <span>모: OO은행 123-456-78902 (최정원)</span>
+            <button onclick="copyText('123-456-78902')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button>
+          </div>
+          <div class="account-item">
+            <span>신랑: OO은행 123-456-78903 (권진형)</span>
+            <button onclick="copyText('123-456-78903')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>신부측 계좌정보</span>
+          <span style="font-size: 10px; color: #A1A1AA;">▼</span>
+        </summary>
+        <div class="account-list">
+          <div class="account-item">
+            <span>부: OO은행 987-654-32101 (이종우)</span>
+            <button onclick="copyText('987-654-32101')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button>
+          </div>
+          <div class="account-item">
+            <span>모: OO은행 987-654-32102 (윤경미)</span>
+            <button onclick="copyText('987-654-32102')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button>
+          </div>
+          <div class="account-item">
+            <span>신부: OO은행 987-654-32103 (이다영)</span>
+            <button onclick="copyText('987-654-32103')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 9. Artistic Collage Gallery (첨부 이미지 기준 사진 1~4 정밀 오버랩 반영) -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 48px;">
+      <p class="section-en-title">GALLERY</p>
+
+      <!-- Group 1: 첨부 이미지와 완벽히 동일한 사진 1, 2, 3, 4 정밀 레이아웃 -->
+      <div style="position: relative; width: 100%; min-height: 480px;">
+        <!-- 사진 1: 상단 좌측 독립된 세로형 컷 -->
+        <div class="placeholder-box aspect-3-4" style="width: 36%; position: absolute; top: 0; left: 0; z-index: 10;" onclick="openImageModal('사진 1')">사진 1</div>
         
-        <!-- 커버 영역 -->
-        <section class="cover visible">
-            <div class="cover-img"></div>
-            <div class="cover-text serif">
-                <h1>권진형 & 이다영</h1>
-                <p>2026. 10. 24. SAT 12:00</p>
-            </div>
-        </section>
+        <!-- 사진 2: 중앙 우측 약간 오버랩 가로형 컷 -->
+        <div class="placeholder-box aspect-4-3" style="width: 36%; position: absolute; top: 110px; right: 0; z-index: 10;" onclick="openImageModal('사진 2')">사진 2</div>
+        
+        <!-- 사진 3: 중앙 메인 대형 세로 컷 -->
+        <div class="placeholder-box aspect-3-4" style="width: 58%; position: absolute; top: 140px; left: 21%; z-index: 0;" onclick="openImageModal('사진 3')">사진 3</div>
+        
+        <!-- 사진 4: 좌측 하단 구석 소형 포개짐 세로 컷 -->
+        <div class="placeholder-box aspect-3-4" style="width: 20%; position: absolute; top: 290px; left: 8%; z-index: 20;" onclick="openImageModal('사진 4')">사진 4</div>
+      </div>
 
-        <!-- 인사말 영역 -->
-        <section class="greeting">
-            <div class="title serif">Invitation</div>
-            <div class="message serif">
-                두 사람이 만나 하나의 길을<br>
-                함께 걸어가려 합니다.<br><br>
-                따뜻한 마음으로 곁에서 지켜봐 주신 분들을<br>
-                저희의 새로운 시작에 초대합니다.<br>
-                귀한 걸음 하시어 축복해 주시면<br>
-                더없는 기쁨으로 간직하겠습니다.
-            </div>
-            <div class="parents serif">
-                <span>권혁준 · 최정윤 의 아들</span> 권진형<br>
-                <span>이종우 · 윤경미 의 딸</span> 이다영
-            </div>
-        </section>
+      <!-- Group 2 -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="placeholder-box aspect-3-4" style="width: 52%; margin: 0 auto;" onclick="openImageModal('사진 5')">사진 5</div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <div class="placeholder-box aspect-3-4" style="width: 32%;" onclick="openImageModal('사진 6')">사진 6</div>
+          <div class="placeholder-box aspect-3-4" style="width: 32%;" onclick="openImageModal('사진 7')">사진 7</div>
+        </div>
+      </div>
 
-        <div class="divider"></div>
+      <!-- Group 3 -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="placeholder-box aspect-4-3" style="width: 65%; margin: 0 auto;" onclick="openImageModal('사진 8')">사진 8</div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 8px;">
+          <div class="placeholder-box aspect-3-4" style="width: 40%; margin-top: 10px;" onclick="openImageModal('사진 9')">사진 9</div>
+          <div class="placeholder-box aspect-3-4" style="width: 40%; margin-top: -30px;" onclick="openImageModal('사진 10')">사진 10</div>
+        </div>
+      </div>
 
-        <!-- 예식장 정보 영역 -->
-        <section class="info">
-            <h2 class="serif">오시는 길</h2>
-            <div class="info-detail">
-                <strong>호텔수성 라포레</strong><br>
-                대구 수성구 용학로 106-7<br>
-            </div>
-            
-            <div class="btn-group">
-                <a href="#" class="btn">네이버 지도</a>
-                <a href="#" class="btn">카카오 맵</a>
-            </div>
-        </section>
+      <!-- Group 4 -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; gap: 10px;">
+          <div class="placeholder-box aspect-3-4" style="width: 28%;" onclick="openImageModal('사진 11')">사진 11</div>
+          <div class="placeholder-box aspect-3-4" style="width: 28%;" onclick="openImageModal('사진 12')">사진 12</div>
+        </div>
+        <div class="placeholder-box aspect-16-10" style="width: 74%; margin-left: auto;" onclick="openImageModal('사진 13')">사진 13</div>
+        <div class="placeholder-box aspect-3-4" style="width: 42%; margin-left: auto;" onclick="openImageModal('사진 14')">사진 14</div>
+      </div>
 
-        <div class="divider"></div>
+      <!-- Group 5 -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <div class="placeholder-box aspect-3-4" style="width: 32%;" onclick="openImageModal('사진 15')">사진 15</div>
+          <div class="placeholder-box aspect-3-4" style="width: 32%;" onclick="openImageModal('사진 16')">사진 16</div>
+        </div>
+        <div class="placeholder-box aspect-16-10" style="width: 76%; margin-right: auto;" onclick="openImageModal('사진 17')">사진 17</div>
+        <div class="placeholder-box aspect-3-4" style="width: 44%; margin-left: auto;" onclick="openImageModal('사진 18')">사진 18</div>
+      </div>
+    </section>
 
-        <!-- 마음 전하실 곳 영역 -->
-        <section class="info">
-            <h2 class="serif">마음 전하실 곳</h2>
-            <div class="info-detail">
-                참석이 어려우신 분들을 위해<br>계좌번호를 기재하였습니다.<br>너른 양해 부탁드립니다.
-            </div>
+    <!-- 10. 하단 공유 버튼 -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 8px; padding-top: 10px;">
+      <button onclick="shareKakao()" class="btn-minimal" style="width: 100%; padding: 13px; background-color: #FEE500; border: none; color: #18181B; font-weight: 500;">
+        카카오톡 공유하기
+      </button>
+      <button onclick="copyURL()" class="btn-minimal" style="width: 100%; padding: 13px;">
+        주소 복사하기
+      </button>
+    </section>
 
-            <div class="account-area">
-                <div class="account-box">
-                    <div class="account-title serif">신랑측</div>
-                    <div class="account-row">
-                        <div>
-                            OO은행 123-456-7890<br>예금주 : 권혁준
-                        </div>
-                        <button class="copy-btn" onclick="copyToClipboard('1234567890')">복사</button>
-                    </div>
-                </div>
+  </div>
 
-                <div class="account-box">
-                    <div class="account-title serif">신부측</div>
-                    <div class="account-row">
-                        <div>
-                            OO은행 098-765-4321<br>예금주 : 이종우
-                        </div>
-                        <button class="copy-btn" onclick="copyToClipboard('0987654321')">복사</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <p id="modal-text" style="font-size: 14px; font-weight: 500; color: #18181B;"></p>
+      <div class="placeholder-box" style="height: 180px; width: 100%;">
+        이미지 영역
+      </div>
+      <button onclick="closeModal()" class="btn-minimal" style="background-color: #18181B; color: white; border: none; padding: 10px; border-radius: 8px;">닫기</button>
     </div>
+  </div>
 
-    <!-- 스크롤 애니메이션 및 복사 기능 스크립트 -->
-    <script>
-        // 스크롤 시 섹션 부드럽게 나타나는 애니메이션
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.15 });
+  <script>
+    // Swiper 초기화
+    new Swiper(".busSwiper", { 
+      spaceBetween: 14, 
+      loop: false,
+      pagination: { el: ".bus-pagination", clickable: true }
+    });
+    new Swiper(".infoSwiper", { 
+      spaceBetween: 14, 
+      loop: false,
+      pagination: { el: ".info-pagination", clickable: true }
+    });
 
-        document.querySelectorAll('section:not(.cover)').forEach((section) => {
-            observer.observe(section);
-        });
+    // Scroll Fade Animation (Intersection Observer)
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
 
-        // 계좌번호 복사 기능
-        function copyToClipboard(val) {
-            navigator.clipboard.writeText(val).then(() => {
-                alert('계좌번호가 복사되었습니다.');
-            }).catch(err => {
-                alert('복사에 실패했습니다. 직접 입력해주세요.');
-            });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
         }
-    </script>
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // D-Day 타이머 (2026년 10월 24일 13:00)
+    const targetDate = new Date('2026-10-24T13:00:00').getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff > 0) {
+        const days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        const hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        const mins = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        const secs = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+        document.getElementById('dday-timer').innerText = `${days} : ${hours} : ${mins} : ${secs}`;
+      }
+    }, 1000);
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text);
+      alert('계좌번호가 복사되었습니다.');
+    }
+
+    function copyURL() {
+      navigator.clipboard.writeText(window.location.href);
+      alert('모바일 청첩장 주소가 복사되었습니다.');
+    }
+
+    function shareKakao() {
+      alert('카카오톡 공유 기능 연동 영역입니다.');
+    }
+
+    function openModal(text) {
+      document.getElementById('modal-text').innerText = text;
+      document.getElementById('modal').style.display = 'flex';
+    }
+    function openImageModal(title) {
+      openModal(title + ' (확대보기)');
+    }
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
