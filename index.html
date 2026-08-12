@@ -42,14 +42,10 @@
 
     /* Scroll Fade Animation */
     .fade-section {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      will-change: opacity, transform;
-    }
-    .fade-section.is-visible {
       opacity: 1;
       transform: translateY(0);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      will-change: opacity, transform;
     }
     section { padding: 0 28px; text-align: center; }
 
@@ -58,19 +54,23 @@
     .section-kr-title { font-size: 18px; font-weight: 600; color: #18181B; letter-spacing: -0.02em; }
     .box-soft { background-color: #FBFBFB; border: 1px solid #F0F0F0; border-radius: 12px; padding: 28px 20px; }
 
-    /* 사진 박스 (이미지가 들어갈 곳) */
+    /* 사진 박스 */
     .placeholder-box {
       background-color: #FAFAFA;
       border: 1px solid #E4E4E7;
       border-radius: 0 !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: transparent; /* 글자 숨김 */
+      display: block;
+      position: relative;
       overflow: hidden;
       cursor: pointer;
-      background-size: cover;
-      background-position: center;
+      padding: 0;
+      width: 100%;
+    }
+    .placeholder-box img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
     }
 
     .btn-minimal {
@@ -79,9 +79,11 @@
     }
 
     /* Aspect Ratios */
-    .aspect-3-4 { aspect-ratio: 3 / 4; }
-    .aspect-4-3 { aspect-ratio: 4 / 3; }
-    .aspect-16-10 { aspect-ratio: 16 / 10; }
+    .aspect-3-4 { aspect-ratio: 3 / 4; min-height: 200px; }
+    .aspect-4-3 { aspect-ratio: 4 / 3; min-height: 150px; }
+    .aspect-3-5 { aspect-ratio: 3 / 5; min-height: 300px; }
+    .aspect-1-2 { aspect-ratio: 1 / 2; min-height: 300px; }
+    .aspect-16-10 { aspect-ratio: 16 / 10; min-height: 180px; }
 
     /* Calendar & D-Day */
     .calendar-container { display: flex; flex-direction: column; align-items: center; gap: 28px; }
@@ -118,12 +120,12 @@
   </style>
 </head>
 <body>
-
   <div class="mobile-container">
-
     <!-- 1. 메인 커버 -->
     <section class="fade-section" style="padding-top: 36px;">
-      <div class="placeholder-box aspect-3-4" style="width: 100%; margin-bottom: 28px; background-image: url('main.jpg'); cursor: default;"></div>
+      <div class="placeholder-box aspect-3-5" style="width: 90%; margin: 0 auto 28px auto; cursor: default;">
+        <img src="main.jpg" alt="메인 사진">
+      </div>
       <p style="font-size: 13.5px; color: #18181B; font-weight: 400;">진형 & 다영</p>
       <p style="font-size: 13.5px; color: #71717A; margin-top: 8px; font-weight: 400;">2026년 10월 24일 토요일 오후 1시</p>
       <p style="font-size: 13.5px; color: #71717A; margin-top: 3px; font-weight: 400;">호텔수성 라포레</p>
@@ -131,10 +133,10 @@
 
     <!-- 2. 초대합니다 -->
     <section class="fade-section">
-      <div class="box-soft" style="display: flex; flex-direction: column; gap: 10px;">
+      <div class="box-soft" style="display: flex; flex-direction: column; gap: 10px; border: none;">
         <p class="section-en-title">INVITATION</p>
         <h2 class="section-kr-title" style="font-size: 17px; margin-bottom: 8px;">초대합니다</h2>
-        <p style="font-size: 13px; color: #52525B; line-height: 1.85;">
+        <p style="font-size: 13px; color: #52525B; line-height: 2.22;">
           함께한 시간보다 더 오랜 시간을 함께하려합니다.<br>
           같은 길을 걸어온 이들의 온기와<br>
           걸어갈 이들의 설렘 속에서<br>
@@ -144,9 +146,9 @@
     </section>
 
     <!-- 3. 혼주 정보 -->
-    <section class="fade-section" style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #52525B;">
-      <p>권혁준 · 최정원의 장남 <strong style="color: #18181B; font-weight: 600; margin-left: 2px;">권진형</strong></p>
-      <p>이종우 · 윤경미의 장녀 <strong style="color: #18181B; font-weight: 600; margin-left: 2px;">이다영</strong></p>
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #52525B; margin-bottom: 30px;">
+      <p><span style="color: #18181B;">권혁준 · 최정원</span>의 장남 <strong style="color: #18181B; font-weight: 600; margin-left: 2px;">권진형</strong></p>
+      <p><span style="color: #18181B;">이종우 · 윤경미</span>의 장녀 <strong style="color: #18181B; font-weight: 600; margin-left: 2px;">이다영</strong></p>
     </section>
 
     <!-- 4. 달력 & D-Day 카운트다운 -->
@@ -164,7 +166,7 @@
 
     <!-- 5. 오시는 길 -->
     <section class="fade-section" style="display: flex; flex-direction: column; gap: 20px;">
-      <div style="margin-bottom: 48px;">
+      <div style="margin-bottom: 72px;">
         <p style="font-size: 13.5px; color: #18181B;">2026년 10월 24일 토요일 오후 1시</p>
         <p style="font-size: 13.5px; color: #18181B; margin-top: 3px;">호텔수성 PH층 라포레</p>
       </div>
@@ -215,7 +217,7 @@
       </div>
     </section>
 
-    <!-- 7. 안내사항 (생략 방지) -->
+    <!-- 7. 안내사항 -->
     <section class="fade-section">
       <div style="margin-bottom: 14px;">
         <p class="section-en-title">INFORMATION</p>
@@ -227,6 +229,12 @@
             <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
               <div><p style="font-size: 11px; color: #A1A1AA; margin-bottom: 2px;">01</p><h4 style="font-size: 15px; color: #18181B;">식사 안내</h4></div>
               <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">예식 후 식사는 호텔수성 지하 1층 뷔페에서 준비되어 있습니다.</p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
+              <div><p style="font-size: 11px; color: #A1A1AA; margin-bottom: 2px;">02</p><h4 style="font-size: 15px; color: #18181B;">야외 예식 및 옷차림 안내</h4></div>
+              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">본 예식은 탁 트인 가을 하늘 아래 야외에서 진행됩니다. 선선한 계절이지만 야외 특성상 바람이 불 수 있으니 가벼운 겉옷을 챙겨오시기를 권해드립니다.</p>
             </div>
           </div>
         </div>
@@ -255,49 +263,74 @@
       </details>
     </section>
 
-    <!-- 9. 갤러리 (사진 1 ~ 18 연동) -->
-    <section class="fade-section" style="display: flex; flex-direction: column; gap: 48px;">
-      <p class="section-en-title">GALLERY</p>
-      
-      <div style="position: relative; width: 100%; min-height: 480px;">
-        <div class="placeholder-box aspect-3-4" style="width: 36%; position: absolute; top: 0; left: 0; z-index: 10; background-image: url('photo1.jpg');" onclick="openImageModal('photo1.jpg')"></div>
-        <div class="placeholder-box aspect-4-3" style="width: 36%; position: absolute; top: 110px; right: 0; z-index: 10; background-image: url('photo2.jpg');" onclick="openImageModal('photo2.jpg')"></div>
-        <div class="placeholder-box aspect-3-4" style="width: 58%; position: absolute; top: 140px; left: 21%; z-index: 0; background-image: url('photo3.jpg');" onclick="openImageModal('photo3.jpg')"></div>
-        <div class="placeholder-box aspect-3-4" style="width: 20%; position: absolute; top: 290px; left: 8%; z-index: 20; background-image: url('photo4.jpg');" onclick="openImageModal('photo4.jpg')"></div>
+    <!-- 9. 갤러리 -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 48px; padding: 0;">
+      <p class="section-en-title" style="padding: 0 28px; text-align: center;">GALLERY</p>
+
+      <!-- [슬라이드 1] -->
+      <div style="display: flex; gap: 10px; padding: 0 100px 0 0; margin: 0;">
+        <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('1.jpg')"><img src="1.jpg" alt="1"></div>
+        <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('2.jpg')"><img src="2.jpg" alt="2"></div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        <div class="placeholder-box aspect-3-4" style="width: 52%; margin: 0 auto; background-image: url('photo5.jpg');" onclick="openImageModal('photo5.jpg')"></div>
-        <div style="display: flex; justify-content: flex-end; gap: 10px;">
-          <div class="placeholder-box aspect-3-4" style="width: 32%; background-image: url('photo6.jpg');" onclick="openImageModal('photo6.jpg')"></div>
-          <div class="placeholder-box aspect-3-4" style="width: 32%; background-image: url('photo7.jpg');" onclick="openImageModal('photo7.jpg')"></div>
-        </div>
+      <!-- 그림 3번 구조/비율 왜곡 수정 영역 -->
+      <div style="position: relative; width: 100%; padding: 0 28px; display: flex; justify-content: center;">
+        <div class="placeholder-box aspect-3-4" style="width: 82%;" onclick="openImageModal('4.jpg')"><img src="4.jpg" alt="4"></div>
+        <div class="placeholder-box" style="width: 25%; aspect-ratio: 3 / 4; position: absolute; bottom: 30px; left: 28px; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;" onclick="openImageModal('3.jpg')"><img src="3.jpg" alt="3"></div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        <div class="placeholder-box aspect-4-3" style="width: 65%; margin: 0 auto; background-image: url('photo8.jpg');" onclick="openImageModal('photo8.jpg')"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 8px;">
-          <div class="placeholder-box aspect-3-4" style="width: 40%; margin-top: 10px; background-image: url('photo9.jpg');" onclick="openImageModal('photo9.jpg')"></div>
-          <div class="placeholder-box aspect-3-4" style="width: 40%; margin-top: -30px; background-image: url('photo10.jpg');" onclick="openImageModal('photo10.jpg')"></div>
-        </div>
+      <!-- 그림 5: 4:3 가로형 -->
+      <div style="padding: 0 0 0 50px; margin-top: 20px;">
+        <div class="placeholder-box aspect-4-3" style="width: 100%;" onclick="openImageModal('5.jpg')"><img src="5.jpg" alt="5"></div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        <div style="display: flex; gap: 10px;">
-          <div class="placeholder-box aspect-3-4" style="width: 28%; background-image: url('photo11.jpg');" onclick="openImageModal('photo11.jpg')"></div>
-          <div class="placeholder-box aspect-3-4" style="width: 28%; background-image: url('photo12.jpg');" onclick="openImageModal('photo12.jpg')"></div>
-        </div>
-        <div class="placeholder-box aspect-16-10" style="width: 74%; margin-left: auto; background-image: url('photo13.jpg');" onclick="openImageModal('photo13.jpg')"></div>
-        <div class="placeholder-box aspect-3-4" style="width: 42%; margin-left: auto; background-image: url('photo14.jpg');" onclick="openImageModal('photo14.jpg')"></div>
+      <div style="display: flex; gap: 10px; padding: 0 28px;">
+        <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('6.jpg')"><img src="6.jpg" alt="6"></div>
+        <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('7.jpg')"><img src="7.jpg" alt="7"></div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        <div style="display: flex; justify-content: flex-end; gap: 10px;">
-          <div class="placeholder-box aspect-3-4" style="width: 32%; background-image: url('photo15.jpg');" onclick="openImageModal('photo15.jpg')"></div>
-          <div class="placeholder-box aspect-3-4" style="width: 32%; background-image: url('photo16.jpg');" onclick="openImageModal('photo16.jpg')"></div>
-        </div>
-        <div class="placeholder-box aspect-16-10" style="width: 76%; margin-right: auto; background-image: url('photo17.jpg');" onclick="openImageModal('photo17.jpg')"></div>
-        <div class="placeholder-box aspect-3-4" style="width: 44%; margin-left: auto; background-image: url('photo18.jpg');" onclick="openImageModal('photo18.jpg')"></div>
+      <div style="padding: 0 28px;">
+        <div class="placeholder-box aspect-3-4" style="width: 70%; margin: 0 auto;" onclick="openImageModal('8.jpg')"><img src="8.jpg" alt="8"></div>
+      </div>
+
+      <!-- 그림 9, 10: 크기 10% 축소 -->
+      <div style="display: flex; gap: 10px; padding: 0 38px; align-items: flex-start; justify-content: space-between;">
+        <div class="placeholder-box aspect-3-4" style="width: 45%;" onclick="openImageModal('9.jpg')"><img src="9.jpg" alt="9"></div>
+        <div class="placeholder-box aspect-3-4" style="width: 45%; margin-top: 20%;" onclick="openImageModal('10.jpg')"><img src="10.jpg" alt="10"></div>
+      </div>
+
+      <!-- [슬라이드 2] -->
+      <div style="padding: 0 28px;">
+        <div class="placeholder-box aspect-3-4" style="width: 70%; margin: 0 auto;" onclick="openImageModal('11.jpg')"><img src="11.jpg" alt="11"></div>
+      </div>
+
+      <!-- 그림 12, 13: 크기 20% 축소 & 오른쪽 여백 0 -->
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 0; align-items: flex-end;">
+        <div class="placeholder-box aspect-4-3" style="width: 68%;" onclick="openImageModal('12.jpg')"><img src="12.jpg" alt="12"></div>
+        <div class="placeholder-box aspect-4-3" style="width: 68%;" onclick="openImageModal('13.jpg')"><img src="13.jpg" alt="13"></div>
+      </div>
+
+      <div style="padding: 0 28px;">
+        <div class="placeholder-box aspect-16-10" style="width: 100%;" onclick="openImageModal('14.jpg')"><img src="14.jpg" alt="14"></div>
+      </div>
+
+      <!-- 그림 15: 크기 20% 축소 & 왼쪽 여백 0 -->
+      <div style="padding: 0; margin: 0;">
+        <div class="placeholder-box aspect-3-4" style="width: 64%;" onclick="openImageModal('15.jpg')"><img src="15.jpg" alt="15"></div>
+      </div>
+
+      <div style="display: flex; gap: 10px; padding: 0; justify-content: flex-end;">
+        <div class="placeholder-box aspect-3-4" style="width: 35%;" onclick="openImageModal('16.jpg')"><img src="16.jpg" alt="16"></div>
+        <div class="placeholder-box aspect-3-4" style="width: 35%;" onclick="openImageModal('17.jpg')"><img src="17.jpg" alt="17"></div>
+      </div>
+
+      <!-- [슬라이드 3] -->
+      <div style="padding: 0 28px 0 0; margin: 0;">
+        <div class="placeholder-box aspect-4-3" style="width: 90%;" onclick="openImageModal('18.jpg')"><img src="18.jpg" alt="18"></div>
+      </div>
+
+      <div style="padding: 0 28px; display: flex; justify-content: flex-end;">
+        <div class="placeholder-box aspect-3-4" style="width: 65%;" onclick="openImageModal('19.jpg')"><img src="19.jpg" alt="19"></div>
       </div>
     </section>
 
@@ -318,11 +351,6 @@
   <script>
     new Swiper(".busSwiper", { spaceBetween: 14, pagination: { el: ".bus-pagination", clickable: true }});
     new Swiper(".infoSwiper", { spaceBetween: 14, pagination: { el: ".info-pagination", clickable: true }});
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => entry.isIntersecting ? entry.target.classList.add('is-visible') : entry.target.classList.remove('is-visible'));
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.fade-section').forEach(section => observer.observe(section));
 
     const targetDate = new Date('2026-10-24T13:00:00').getTime();
     setInterval(() => {
