@@ -14,7 +14,10 @@
 
   <!-- Pretendard 웹 폰트 -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-
+  
+  <!-- Swiper.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <style>
     /* Global Reset & Fonts */
@@ -28,28 +31,28 @@
       min-height: 100vh;
       word-break: keep-all;
       -webkit-font-smoothing: antialiased;
-
     }
-/* 지도 바로가기 버튼 스타일 (텍스트 중앙 정렬) */
-.map-app-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #FFFFFF;
-  border: 1px solid #EBEBEF;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  padding: 9px 0;
-  font-size: 12px;
-  color: #3F3F46;
-  text-decoration: none;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  transition: background-color 0.15s ease;
-}
-.map-app-btn:active {
-  background-color: #F4F4F5;
-}
+    
+    /* 지도 바로가기 버튼 스타일 (텍스트 중앙 정렬) */
+    .map-app-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #FFFFFF;
+      border: 1px solid #EBEBEF;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      padding: 9px 0;
+      font-size: 12px;
+      color: #3F3F46;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      transition: background-color 0.15s ease;
+    }
+    .map-app-btn:active {
+      background-color: #F4F4F5;
+    }
 
     /* Mobile Container Setup */
     .mobile-container {
@@ -138,46 +141,46 @@
     .account-list { padding: 18px 20px; border-top: 1px solid #F4F4F5; display: flex; flex-direction: column; gap: 14px; font-size: 12.5px; }
     .account-item { display: flex; justify-content: space-between; align-items: center; }
 
-/* Modal (수정 후) */
-.modal-overlay {
-  position: fixed; 
-  inset: 0; 
-  background-color: rgba(0, 0, 0, 0.9); 
-  backdrop-filter: blur(5px);
-  display: none; 
-  align-items: center; 
-  justify-content: center; 
-  z-index: 999; 
-  padding: 0; /* 1. 바깥 여백 제거 */
-}
-.modal-content {
-  width: 100%; 
-  max-width: 100%; /* 2. 최대 너비 제한 해제 */
-  display: flex; 
-  flex-direction: column; 
-  gap: 16px; 
-  align-items: center;
-}
-#modal-image { 
-  width: 100%; /* 3. 화면 가로폭 100% 채움 */
-  height: auto; 
-  max-height: 85vh; 
-  object-fit: contain; 
-}
+    /* Modal */
+    .modal-overlay {
+      position: fixed; 
+      inset: 0; 
+      background-color: rgba(0, 0, 0, 0.9); 
+      backdrop-filter: blur(5px);
+      display: none; 
+      align-items: center; 
+      justify-content: center; 
+      z-index: 999; 
+      padding: 0; 
+    }
+    .modal-content {
+      width: 100%; 
+      max-width: 100%; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 16px; 
+      align-items: center;
+    }
+    #modal-image { 
+      width: 100%; 
+      height: auto; 
+      max-height: 85vh; 
+      object-fit: contain; 
+    }
   </style>
 </head>
 <body>
   <div class="mobile-container">
     <!-- 1. 메인 커버 -->
-<section class="fade-section" style="padding-top: 36px;">
-  <!-- 고정 비율 클래스를 빼고 너비를 모바일 화면에 맞춰 55~65% 수준으로 설정 -->
-  <div class="placeholder-box" style="width: 25%; margin: 0 auto 28px auto; border: none; cursor: default;">
-    <img src="main.jpg" alt="메인 사진" style="width: 100%; height: auto; display: block;">
-  </div>
-  <p style="font-size: 13.5px; color: #18181B; font-weight: 400;">진형 & 다영</p>
-  <p style="font-size: 13.5px; color: #71717A; margin-top: 8px; font-weight: 400;">2026년 10월 24일 토요일 오후 1시</p>
-  <p style="font-size: 13.5px; color: #71717A; margin-top: 3px; font-weight: 400;">호텔수성 라포레</p>
-</section>
+    <section class="fade-section" style="padding-top: 36px;">
+      <div class="placeholder-box" style="width: 25%; margin: 0 auto 28px auto; border: none; cursor: default;">
+        <img src="main.jpg" alt="메인 사진" style="width: 100%; height: auto; display: block;">
+      </div>
+      <p style="font-size: 13.5px; color: #18181B; font-weight: 400;">진형 & 다영</p>
+      <p style="font-size: 13.5px; color: #71717A; margin-top: 8px; font-weight: 400;">2026년 10월 24일 토요일 오후 1시</p>
+      <p style="font-size: 13.5px; color: #71717A; margin-top: 3px; font-weight: 400;">호텔수성 라포레</p>
+    </section>
+
     <!-- 2. 초대합니다 -->
     <section class="fade-section">
       <div class="box-soft" style="display: flex; flex-direction: column; gap: 10px; border: none;">
@@ -211,82 +214,52 @@
       </div>
     </section>
 
-<!-- 5. 오시는 길 -->
-<section class="fade-section" style="display: flex; flex-direction: column; gap: 20px;">
-  <div>
-    <p class="section-en-title">LOCATION</p>
-    <h3 class="section-kr-title" style="margin-bottom: 12px;">오시는 길</h3>
-    
-<!-- 예식장 상세 정보 및 주소 -->
-    <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #52525B; line-height: 1.6; margin-bottom: 6px;">
-      <p style="margin: 0;">호텔수성 수성스퀘어</p>
-      <p style="margin: 0;">PH층 라포레</p>
-      <p style="margin: 0;">대구 수성구 용학로 92-4</p>
-    </div>
-  </div>
-
-  <!-- 지도 영역 -->
-  <div style="width: 100%; height: 210px; border: 1px solid #E4E4E7; border-radius: 8px; overflow: hidden;">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.81056581179!2d128.6256285!3d35.8290947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35660c6a58133efb%3A0xda5ebf7bb25dfb4a!2z7Iic7ISx6rWsIOi9qWhhbmcxMDYtNw!5e0!3m2!1sko!2skr!4v1700000000000" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
-  </div>
-
-<!-- 지도 바로 아래 내비/지도 버튼 (텍스트 전용) -->
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; margin-top: -8px; margin-bottom: 6px;">
-
-  <!-- 네이버지도 -->
-  <a href="https://map.naver.com/v5/search/%ED%98%B8%ED%85%94%EC%88%98%EC%84%B1" target="_blank" class="map-app-btn">네이버지도</a>
-
-  <!-- 카카오내비 -->
-  <a href="https://map.kakao.com/link/search/%ED%98%B8%ED%85%94%EC%88%98%EC%84%B1" target="_blank" class="map-app-btn">카카오내비</a>
-
-  <!-- 티맵 -->
-  <a href="https://m.tmap.co.kr/search.do?keyword=%ED%98%B8%ED%85%94%EC%88%98%EC%84%B1" target="_blank" class="map-app-btn">티맵</a>
-
-
-
-</div>
-
-  <!-- 대중교통 및 주차 안내 -->
-  <div style="display: flex; flex-direction: column; gap: 18px; text-align: left; margin: 4px 0 8px 0;">
-    
-    <!-- KTX / SRT -->
-    <div style="display: flex; flex-direction: column; gap: 6px;">
+    <!-- 5. 오시는 길 -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 20px;">
       <div>
-        <span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">KTX / SRT</span>
+        <p class="section-en-title">LOCATION</p>
+        <h3 class="section-kr-title" style="margin-bottom: 12px;">오시는 길</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #52525B; line-height: 1.6; margin-bottom: 6px;">
+          <p style="margin: 0;">호텔수성 수성스퀘어</p>
+          <p style="margin: 0;">PH층 라포레</p>
+          <p style="margin: 0;">대구 수성구 용학로 92-4</p>
+        </div>
       </div>
-      <p style="font-size: 12.5px; color: #52525B; line-height: 1.6; margin: 0; padding-left: 2px;">동대구역 하차 &gt; 택시 20분 내외</p>
-    </div>
 
-    <!-- 버스 -->
-    <div style="display: flex; flex-direction: column; gap: 6px;">
-      <div>
-        <span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">버스</span>
+      <div style="width: 100%; height: 210px; border: 1px solid #E4E4E7; border-radius: 8px; overflow: hidden;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.81056581179!2d128.6256285!3d35.8290947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35660c6a58133efb%3A0xda5ebf7bb25dfb4a!2z7Iic7ISx6rWsIOi9qWhhbmcxMDYtNw!5e0!3m2!1sko!2skr!4v1700000000000" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #52525B; line-height: 1.6; padding-left: 2px;">
-        <p style="margin: 0;">401, 410-1 : 호텔수성 정류장 하차</p>
-        <p style="margin: 0;">수성1-1 : 불교한방병원 하차 도보 7분</p>
-        <p style="margin: 0;">204, 814, 수성3-1, 급행3 : TBC방송국 하차 도보 15분</p>
-      </div>
-    </div>
 
-    <!-- 지상철 -->
-    <div style="display: flex; flex-direction: column; gap: 6px;">
-      <div>
-        <span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">지상철</span>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; margin-top: -8px; margin-bottom: 6px;">
+        <a href="https://map.naver.com/v5/search/%ED%98%B8%ED%85%94%EC%88%98%EC%84%B1" target="_blank" class="map-app-btn">네이버지도</a>
+        <a href="https://map.kakao.com/link/search/%ED%98%B8%ED%85%94%EC%88%98%EC%84%B1" target="_blank" class="map-app-btn">카카오내비</a>
+        <a href="https://m.tmap.co.kr/search.do?keyword=%ED%98%B8%ED%85%94%EC%88%98%EC%84%B1" target="_blank" class="map-app-btn">티맵</a>
       </div>
-      <p style="font-size: 12.5px; color: #52525B; line-height: 1.6; margin: 0; padding-left: 2px;">3호선 수성못역 하차 도보 15분</p>
-    </div>
 
-    <!-- 주차 -->
-    <div style="display: flex; flex-direction: column; gap: 6px;">
-      <div>
-        <span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">주차</span>
+      <div style="display: flex; flex-direction: column; gap: 18px; text-align: left; margin: 4px 0 8px 0;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div><span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">KTX / SRT</span></div>
+          <p style="font-size: 12.5px; color: #52525B; line-height: 1.6; margin: 0; padding-left: 2px;">동대구역 하차 &gt; 택시 20분 내외</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div><span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">버스</span></div>
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #52525B; line-height: 1.6; padding-left: 2px;">
+            <p style="margin: 0;">401, 410-1 : 호텔수성 정류장 하차</p>
+            <p style="margin: 0;">수성1-1 : 불교한방병원 하차 도보 7분</p>
+            <p style="margin: 0;">204, 814, 수성3-1, 급행3 : TBC방송국 하차 도보 15분</p>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div><span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">지상철</span></div>
+          <p style="font-size: 12.5px; color: #52525B; line-height: 1.6; margin: 0; padding-left: 2px;">3호선 수성못역 하차 도보 15분</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div><span style="display: inline-block; background-color: #ECECEE; color: #3F3F46; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: -0.01em;">주차</span></div>
+          <p style="font-size: 12.5px; color: #52525B; line-height: 1.6; margin: 0; padding-left: 2px;">수성스퀘어 주차 시 3시간 무료 주차</p>
+        </div>
       </div>
-      <p style="font-size: 12.5px; color: #52525B; line-height: 1.6; margin: 0; padding-left: 2px;">수성스퀘어 주차 시 3시간 무료 주차</p>
-    </div>
-
-  </div>
-</section>
+    </section>
 
     <!-- 6. 하객버스 안내 -->
     <section class="fade-section">
@@ -319,7 +292,7 @@
       </div>
     </section>
 
- <!-- 7. 안내사항 -->
+    <!-- 7. 안내사항 -->
     <section class="fade-section">
       <div style="margin-bottom: 14px;">
         <p class="section-en-title">INFORMATION</p>
@@ -327,70 +300,62 @@
       </div>
       <div class="swiper infoSwiper" style="width: 100%;">
         <div class="swiper-wrapper">
-          <!-- 01 결혼식 안내 -->
           <div class="swiper-slide">
             <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
               <div><p style="font-size: 11px; color: #A1A1AA; margin-bottom: 2px;">01</p><h4 style="font-size: 15px; color: #18181B;">결혼식 안내</h4></div>
-              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">가을 하늘 아래 야외에서 결혼식을 올립니다.<br>
-산책하듯 가벼운 마음과 함께, 편안한 옷차림으로 와주세요.</p>
+              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">가을 하늘 아래 야외에서 결혼식을 올립니다.<br>산책하듯 가벼운 마음과 함께, 편안한 옷차림으로 와주세요.</p>
             </div>
           </div>
-          <!-- 02 웰컴드링크 -->
           <div class="swiper-slide">
             <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
               <div><p style="font-size: 11px; color: #A1A1AA; margin-bottom: 2px;">02</p><h4 style="font-size: 15px; color: #18181B;">웰컴드링크</h4></div>
-              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">식장에 웰컴드링크가 마련되어 있습니다.<br>
-편한 이용 부탁드립니다.</p>
+              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">식장에 웰컴드링크가 마련되어 있습니다.<br>편한 이용 부탁드립니다.</p>
             </div>
           </div>
-          <!-- 03 식사 안내 -->
           <div class="swiper-slide">
             <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
               <div><p style="font-size: 11px; color: #A1A1AA; margin-bottom: 2px;">03</p><h4 style="font-size: 15px; color: #18181B;">식사 안내</h4></div>
-              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">예식 후 식사는 2층 뷔페에서 준비되어 있습니다.<br>
-음료 및 주류 무제한으로 제공되오니 편히 이용해주세요.</p>
+              <p style="font-size: 12.5px; color: #71717A; line-height: 1.8;">예식 후 식사는 2층 뷔페에서 준비되어 있습니다.<br>음료 및 주류 무제한으로 제공되오니 편히 이용해주세요.</p>
             </div>
           </div>
         </div>
         <div class="swiper-pagination info-pagination"></div>
       </div>
     </section>
-<!-- 8. 마음 전하실 곳 (축의금) -->
-<section class="fade-section" style="display: flex; flex-direction: column; gap: 12px;">
-  <div style="margin-bottom: 2px;">
-    <p class="section-en-title">THANKS TO</p>
-    <h3 class="section-kr-title" style="font-size: 16px; margin-bottom: 8px;">마음 전하실 곳</h3>
-    
-    <!-- 추가된 안내 문구 -->
-    <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #52525B; line-height: 1.6; text-align: center; margin-bottom: 6px;">
-      <p style="margin: 0;">참석이 어려우신 분들을 위해 기재했습니다</p>
-      <p style="margin: 0;">너그러운 마음으로 양해 부탁드립니다</p>
-    </div>
-  </div>
 
-  <details>
-    <summary><span>신랑측 계좌정보</span><span style="font-size: 10px; color: #A1A1AA;">▼</span></summary>
-    <div class="account-list">
-      <div class="account-item"><span>부: OO은행 123-456-78901 (권혁준)</span><button onclick="copyText('123-456-78901')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
-      <div class="account-item"><span>모: OO은행 123-456-78902 (최정윤)</span><button onclick="copyText('123-456-78902')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
-      <div class="account-item"><span>신랑: 토스뱅크 1000-6660-0589 (권진형)</span><button onclick="copyText('1000-6660-0589')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
-    </div>
-  </details>
-  <details>
-    <summary><span>신부측 계좌정보</span><span style="font-size: 10px; color: #A1A1AA;">▼</span></summary>
-    <div class="account-list">
-      <div class="account-item"><span>부: 농협은행 176183-56-041020 (이종우)</span><button onclick="copyText('176183-56-041020')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
-      <div class="account-item"><span>모: 농협은행 352-1708-9474-13 (윤경미)</span><button onclick="copyText('352-1708-9474-13')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
-      <div class="account-item"><span>신부: 국민은행 538202-04-283991 (이다영)</span><button onclick="copyText('538202-04-283991')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
-    </div>
-  </details>
-</section>
+    <!-- 8. 마음 전하실 곳 (축의금) -->
+    <section class="fade-section" style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="margin-bottom: 2px;">
+        <p class="section-en-title">THANKS TO</p>
+        <h3 class="section-kr-title" style="font-size: 16px; margin-bottom: 8px;">마음 전하실 곳</h3>
+        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #52525B; line-height: 1.6; text-align: center; margin-bottom: 6px;">
+          <p style="margin: 0;">참석이 어려우신 분들을 위해 기재했습니다</p>
+          <p style="margin: 0;">너그러운 마음으로 양해 부탁드립니다</p>
+        </div>
+      </div>
 
-    <!-- 9. 갤러리 (개별 이미지 페이드인/페이드아웃 fade-item 적용) -->
+      <details>
+        <summary><span>신랑측 계좌정보</span><span style="font-size: 10px; color: #A1A1AA;">▼</span></summary>
+        <div class="account-list">
+          <div class="account-item"><span>부: OO은행 123-456-78901 (권혁준)</span><button onclick="copyText('123-456-78901')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
+          <div class="account-item"><span>모: OO은행 123-456-78902 (최정윤)</span><button onclick="copyText('123-456-78902')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
+          <div class="account-item"><span>신랑: 토스뱅크 1000-6660-0589 (권진형)</span><button onclick="copyText('1000-6660-0589')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
+        </div>
+      </details>
+      <details>
+        <summary><span>신부측 계좌정보</span><span style="font-size: 10px; color: #A1A1AA;">▼</span></summary>
+        <div class="account-list">
+          <div class="account-item"><span>부: 농협은행 176183-56-041020 (이종우)</span><button onclick="copyText('176183-56-041020')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
+          <div class="account-item"><span>모: 농협은행 352-1708-9474-13 (윤경미)</span><button onclick="copyText('352-1708-9474-13')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
+          <div class="account-item"><span>신부: 국민은행 538202-04-283991 (이다영)</span><button onclick="copyText('538202-04-283991')" class="btn-minimal" style="padding: 4px 10px; font-size: 11px;">복사</button></div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 9. 갤러리 -->
     <section style="display: flex; flex-direction: column; gap: 48px; padding: 0;">
       <p class="section-en-title fade-item" style="padding: 0 28px; text-align: center;">GALLERY</p>
 
-      <!-- [슬라이드 1] -->
       <div class="fade-item" style="display: flex; gap: 10px; padding: 0 100px 0 0; margin: 0;">
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('1.jpg')"><img src="1.jpg" alt="1"></div>
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('2.jpg')"><img src="2.jpg" alt="2"></div>
@@ -419,7 +384,6 @@
         <div class="placeholder-box aspect-3-4" style="width: 45%; margin-top: 20%;" onclick="openImageModal('10.jpg')"><img src="10.jpg" alt="10"></div>
       </div>
 
-      <!-- [슬라이드 2] -->
       <div class="fade-item" style="padding: 0 28px;">
         <div class="placeholder-box aspect-3-4" style="width: 70%; margin: 0 auto;" onclick="openImageModal('11.jpg')"><img src="11.jpg" alt="11"></div>
       </div>
@@ -442,7 +406,6 @@
         <div class="placeholder-box aspect-3-4" style="width: 45%;" onclick="openImageModal('17.jpg')"><img src="17.jpg" alt="17"></div>
       </div>
 
-      <!-- [슬라이드 3] -->
       <div class="fade-item" style="padding: 0 28px 0 0; margin: 0;">
         <div class="placeholder-box aspect-16-10" style="width: 90%;" onclick="openImageModal('18.jpg')"><img src="18.jpg" alt="18"></div>
       </div>
@@ -470,24 +433,14 @@
     new Swiper(".busSwiper", { spaceBetween: 14, pagination: { el: ".bus-pagination", clickable: true }});
     new Swiper(".infoSwiper", { spaceBetween: 14, pagination: { el: ".info-pagination", clickable: true }});
 
-    // 화면 진입/이탈 감지 (개별 이미지 박스 포함)
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -5% 0px',
-      threshold: 0.15
-    };
-
+    const observerOptions = { root: null, rootMargin: '0px 0px -5% 0px', threshold: 0.15 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        } else {
-          entry.target.classList.remove('is-visible');
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } 
+        else { entry.target.classList.remove('is-visible'); }
       });
     }, observerOptions);
 
-    // .fade-section 과 .fade-item 모두 감지
     document.querySelectorAll('.fade-section, .fade-item').forEach(element => observer.observe(element));
 
     const targetDate = new Date('2026-10-24T13:00:00').getTime();
@@ -501,7 +454,6 @@
     function copyText(text) { navigator.clipboard.writeText(text); alert('계좌번호가 복사되었습니다.'); }
     function copyURL() { navigator.clipboard.writeText(window.location.href); alert('모바일 청첩장 주소가 복사되었습니다.'); }
     
-    // 이미지 확대 모달 기능
     function openImageModal(imgSrc) {
       document.getElementById('modal-image').src = imgSrc;
       document.getElementById('modal').style.display = 'flex';
