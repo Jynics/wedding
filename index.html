@@ -36,6 +36,42 @@
       -webkit-font-smoothing: antialiased;
     }
     
+    /* BGM 컨트롤 버튼 (우측 상단 고정 플로팅) */
+    .bgm-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3F3F46;
+      transition: all 0.2s ease;
+    }
+    .bgm-btn:active {
+      transform: scale(0.92);
+      background: #FFFFFF;
+    }
+    .bgm-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+    .bgm-playing svg {
+      animation: rotateIcon 4s linear infinite;
+    }
+    @keyframes rotateIcon {
+      100% { transform: rotate(360deg); }
+    }
+
     /* 지도 바로가기 버튼 스타일 (텍스트 중앙 정렬) */
     .map-app-btn {
       display: flex;
@@ -173,6 +209,17 @@
   </style>
 </head>
 <body>
+  <!-- 배경음악 오디오 요소 (첨부 음원을 bgm.mp3로 저장) -->
+  <audio id="bgm" src="bgm.mp3" preload="auto" loop></audio>
+
+  <!-- 음원 토글/음소거 버튼 -->
+  <button id="bgm-btn" class="bgm-btn" onclick="toggleBgm()" aria-label="배경음악 제어">
+    <span id="bgm-icon">
+      <!-- 재생 중지/음소거 아이콘 -->
+      <svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27l4.73 4.73H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+    </span>
+  </button>
+
   <div class="mobile-container">
     <!-- 1. 메인 커버 -->
     <section class="fade-section" style="padding-top: 36px;">
@@ -432,7 +479,50 @@
   </div>
 
   <script>
-    /* 네이버 지도 초기화 함수 (상단 스크립트의 callback=initMap에 의해 호출됨) */
+    /* 배경음악(BGM) 제어 로직 */
+    const bgm = document.getElementById('bgm');
+    const bgmBtn = document.getElementById('bgm-btn');
+    const bgmIcon = document.getElementById('bgm-icon');
+
+    const iconPlay = '<svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>';
+    const iconMute = '<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27l4.73 4.73H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>';
+
+    let isPlaying = false;
+
+    function toggleBgm() {
+      if (bgm.paused) {
+        bgm.play().then(() => {
+          isPlaying = true;
+          bgmBtn.classList.add('bgm-playing');
+          bgmIcon.innerHTML = iconPlay;
+        }).catch(err => console.log('BGM 재생 오류:', err));
+      } else {
+        bgm.pause();
+        isPlaying = false;
+        bgmBtn.classList.remove('bgm-playing');
+        bgmIcon.innerHTML = iconMute;
+      }
+    }
+
+    // 모바일 브라우저 자동재생 제약 해제: 사용자의 첫 터치 또는 스크롤 시 자동 시작
+    function enableAutoPlayOnce() {
+      if (!isPlaying && bgm.paused) {
+        bgm.play().then(() => {
+          isPlaying = true;
+          bgmBtn.classList.add('bgm-playing');
+          bgmIcon.innerHTML = iconPlay;
+        }).catch(() => {});
+      }
+      document.removeEventListener('touchstart', enableAutoPlayOnce);
+      document.removeEventListener('click', enableAutoPlayOnce);
+      document.removeEventListener('scroll', enableAutoPlayOnce);
+    }
+
+    document.addEventListener('touchstart', enableAutoPlayOnce, { once: true, passive: true });
+    document.addEventListener('click', enableAutoPlayOnce, { once: true });
+    document.addEventListener('scroll', enableAutoPlayOnce, { once: true, passive: true });
+
+    /* 네이버 지도 초기화 함수 */
     function initMap() {
       if (typeof naver !== 'undefined' && naver.maps) {
         var venueLocation = new naver.maps.LatLng(35.82526, 128.62017);
