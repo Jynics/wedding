@@ -19,9 +19,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-  <!-- NAVER Maps API (YOUR_NAVER_CLIENT_ID 부분에 발급받으신 Client ID를 입력해주세요) -->
-  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=jny4pu0id7"></script>
-
+  <!-- NAVER Maps API -->
+  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=jny4pu0id7&callback=initMap"></script>
+  
   <style>
     /* Global Reset & Fonts */
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -432,8 +432,8 @@
   </div>
 
   <script>
-    /* 네이버 지도 초기화 */
-    document.addEventListener('DOMContentLoaded', function() {
+    /* 네이버 지도 초기화 함수 (상단 스크립트의 callback=initMap에 의해 호출됨) */
+    function initMap() {
       if (typeof naver !== 'undefined' && naver.maps) {
         var venueLocation = new naver.maps.LatLng(35.82526, 128.62017);
         var mapOptions = {
@@ -451,7 +451,7 @@
           map: map
         });
       }
-    });
+    }
 
     new Swiper(".busSwiper", { spaceBetween: 14, pagination: { el: ".bus-pagination", clickable: true }});
     new Swiper(".infoSwiper", { spaceBetween: 14, pagination: { el: ".info-pagination", clickable: true }});
@@ -481,7 +481,7 @@
       document.getElementById('modal-image').src = imgSrc;
       document.getElementById('modal').style.display = 'flex';
     }
-    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }    
   </script>
 </body>
 </html>
