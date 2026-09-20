@@ -410,15 +410,19 @@
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('2.jpg')"><img src="2.jpg" alt="2"></div>
       </div>
 
+ <!-- 4번 사진: 3번 사진을 빼고 단독 배치 -->
       <div class="fade-item" style="position: relative; width: 100%; padding: 0 28px; display: flex; justify-content: center;">
         <div class="placeholder-box aspect-3-4" style="width: 82%;" onclick="openImageModal('4.jpg')"><img src="4.jpg" alt="4"></div>
-        <div class="placeholder-box" style="width: 25%; aspect-ratio: 3 / 4; position: absolute; bottom: 30px; left: 28px; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;" onclick="openImageModal('3.jpg')"><img src="3.jpg" alt="3"></div>
       </div>
 
-      <div class="fade-item" style="padding: 0 0 0 50px; margin-top: 20px;">
-        <div class="placeholder-box aspect-4-3" style="width: 100%;" onclick="openImageModal('5.jpg')"><img src="5.jpg" alt="5"></div>
+      <!-- 5번 사진 (폭 80% 우측 정렬) + 3번 사진 (좌측 하단 28px 여백으로 배치) -->
+      <div class="fade-item" style="position: relative; width: 100%; display: flex; justify-content: flex-end; margin-top: 20px;">
+        <div class="placeholder-box aspect-4-3" style="width: 80%;" onclick="openImageModal('5.jpg')"><img src="5.jpg" alt="5"></div>
+        <div class="placeholder-box" style="width: 25%; aspect-ratio: 3 / 4; position: absolute; bottom: -15px; left: 28px; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;" onclick="openImageModal('3.jpg')">
+          <img src="3.jpg" alt="3">
+        </div>
       </div>
-
+      
       <div class="fade-item" style="display: flex; gap: 10px; padding: 0 28px;">
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('6.jpg')"><img src="6.jpg" alt="6"></div>
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('7.jpg')"><img src="7.jpg" alt="7"></div>
