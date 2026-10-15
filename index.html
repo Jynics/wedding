@@ -180,24 +180,24 @@
     .account-list { padding: 18px 20px; border-top: 1px solid #F4F4F5; display: flex; flex-direction: column; gap: 14px; font-size: 12.5px; }
     .account-item { display: flex; justify-content: space-between; align-items: center; }
 
-    /* Modal */
+    /* Modal (이미지 및 지도 공통) */
     .modal-overlay {
       position: fixed; 
       inset: 0; 
-      background-color: rgba(0, 0, 0, 0.9); 
+      background-color: rgba(0, 0, 0, 0.75); 
       backdrop-filter: blur(5px);
       display: none; 
       align-items: center; 
       justify-content: center; 
       z-index: 999; 
-      padding: 0; 
+      padding: 20px; 
     }
     .modal-content {
       width: 100%; 
-      max-width: 100%; 
+      max-width: 380px; 
       display: flex; 
       flex-direction: column; 
-      gap: 16px; 
+      gap: 14px; 
       align-items: center;
     }
     #modal-image { 
@@ -206,16 +206,33 @@
       max-height: 85vh; 
       object-fit: contain; 
     }
+
+    /* 지도 모달 전용 카드 */
+    .map-modal-card {
+      width: 100%;
+      background: #FFFFFF;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+    .map-modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #F4F4F5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
-  <!-- 배경음악 오디오 요소 (첨부 음원을 bgm.mp3로 저장) -->
+  <!-- 배경음악 오디오 요소 (bgm.mp3) -->
   <audio id="bgm" src="bgm.mp3" preload="auto" loop></audio>
 
   <!-- 음원 토글/음소거 버튼 -->
   <button id="bgm-btn" class="bgm-btn" onclick="toggleBgm()" aria-label="배경음악 제어">
     <span id="bgm-icon">
-      <!-- 재생 중지/음소거 아이콘 -->
       <svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27l4.73 4.73H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
     </span>
   </button>
@@ -237,7 +254,7 @@
         <p class="section-en-title">INVITATION</p>
         <h2 class="section-kr-title" style="font-size: 17px; margin-bottom: 8px;">초대합니다</h2>
         <p style="font-size: 13px; color: #52525B; line-height: 2.22;">
-          함께한 시간보다 더 오랜 시간을 함께하려 합니다.<br>
+          함께한 시간보다 더 오랜 시간을 함께하려합니다.<br>
           같은 길을 걸어온 이들의 온기와<br>
           걸어갈 이들의 설렘 속에서<br>
           저희 두 사람이 다가갈 날들을 축복해 주세요.
@@ -277,7 +294,7 @@
         </div>
       </div>
 
-      <!-- 네이버 지도 렌더링 컨테이너 -->
+      <!-- 식장 네이버 지도 렌더링 컨테이너 -->
       <div id="map" style="width: 100%; height: 210px; border: 1px solid #E4E4E7; border-radius: 8px; overflow: hidden;"></div>
 
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; margin-top: -8px; margin-bottom: 6px;">
@@ -324,7 +341,8 @@
               <div style="display: flex; flex-direction: column; gap: 16px; font-size: 12.5px; line-height: 1.7;">
                 <div><p style="font-weight: 500; color: #18181B;">대전 → 대구 (가는편)</p><p style="color: #71717A;">탑승 장소: 한국원자력안전기술원</p><p style="color: #71717A;">출발 시간: 오전 10시</p></div>
               </div>
-              <button onclick="openImageModal('bus1.jpg')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">탑승 위치 안내 보기</button>
+              <!-- 네이버 지도 팝업 호출 -->
+              <button onclick="openBusMapModal('bus1')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">탑승 위치 안내 보기</button>
             </div>
           </div>
           <div class="swiper-slide">
@@ -333,7 +351,8 @@
               <div style="display: flex; flex-direction: column; gap: 16px; font-size: 12.5px; line-height: 1.7;">
                 <div><p style="font-weight: 500; color: #18181B;">대전 → 대구 (가는편)</p><p style="color: #71717A;">탑승 장소: 만남의 광장(북대전ic)</p><p style="color: #71717A;">출발 시간: 오전 10시</p></div>
               </div>
-              <button onclick="openImageModal('bus2.jpg')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">탑승 위치 안내 보기</button>
+              <!-- 네이버 지도 팝업 호출 -->
+              <button onclick="openBusMapModal('bus2')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">탑승 위치 안내 보기</button>
             </div>
           </div>
         </div>
@@ -410,19 +429,15 @@
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('2.jpg')"><img src="2.jpg" alt="2"></div>
       </div>
 
- <!-- 4번 사진: 3번 사진을 빼고 단독 배치 -->
       <div class="fade-item" style="position: relative; width: 100%; padding: 0 28px; display: flex; justify-content: center;">
         <div class="placeholder-box aspect-3-4" style="width: 82%;" onclick="openImageModal('4.jpg')"><img src="4.jpg" alt="4"></div>
+        <div class="placeholder-box" style="width: 25%; aspect-ratio: 3 / 4; position: absolute; bottom: 30px; left: 28px; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;" onclick="openImageModal('3.jpg')"><img src="3.jpg" alt="3"></div>
       </div>
 
-      <!-- 5번 사진 (폭 80% 우측 정렬) + 3번 사진 (좌측 하단 28px 여백으로 배치) -->
-      <div class="fade-item" style="position: relative; width: 100%; display: flex; justify-content: flex-end; margin-top: 20px;">
-        <div class="placeholder-box aspect-4-3" style="width: 80%;" onclick="openImageModal('5.jpg')"><img src="5.jpg" alt="5"></div>
-        <div class="placeholder-box" style="width: 25%; aspect-ratio: 3 / 4; position: absolute; bottom: -15px; left: 0px; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;" onclick="openImageModal('3.jpg')">
-          <img src="3.jpg" alt="3">
-        </div>
+      <div class="fade-item" style="padding: 0 0 0 50px; margin-top: 20px;">
+        <div class="placeholder-box aspect-4-3" style="width: 100%;" onclick="openImageModal('5.jpg')"><img src="5.jpg" alt="5"></div>
       </div>
-      
+
       <div class="fade-item" style="display: flex; gap: 10px; padding: 0 28px;">
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('6.jpg')"><img src="6.jpg" alt="6"></div>
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('7.jpg')"><img src="7.jpg" alt="7"></div>
@@ -482,6 +497,23 @@
     </div>
   </div>
 
+  <!-- 하객버스 네이버 지도 팝업 모달창 -->
+  <div id="map-modal" class="modal-overlay" onclick="closeBusMapModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="map-modal-card">
+        <div class="map-modal-header">
+          <div>
+            <p id="bus-map-subtitle" style="font-size: 11px; color: #A1A1AA; margin-bottom: 2px;">하객버스 탑승 위치</p>
+            <h4 id="bus-map-title" style="font-size: 14.5px; color: #18181B; font-weight: 600;">탑승 장소</h4>
+          </div>
+          <button onclick="closeBusMapModal()" style="border: none; background: none; font-size: 18px; color: #71717A; cursor: pointer; padding: 4px;">✕</button>
+        </div>
+        <div id="bus-map" style="width: 100%; height: 280px; background-color: #F4F4F5;"></div>
+      </div>
+      <button onclick="closeBusMapModal()" class="btn-minimal" style="background-color: white; border: none; padding: 10px 24px; font-weight: 500;">닫기</button>
+    </div>
+  </div>
+
   <script>
     /* 배경음악(BGM) 제어 로직 */
     const bgm = document.getElementById('bgm');
@@ -508,7 +540,6 @@
       }
     }
 
-    // 모바일 브라우저 자동재생 제약 해제: 사용자의 첫 터치 또는 스크롤 시 자동 시작
     function enableAutoPlayOnce() {
       if (!isPlaying && bgm.paused) {
         bgm.play().then(() => {
@@ -526,7 +557,7 @@
     document.addEventListener('click', enableAutoPlayOnce, { once: true });
     document.addEventListener('scroll', enableAutoPlayOnce, { once: true, passive: true });
 
-    /* 네이버 지도 초기화 함수 */
+    /* 메인 식장 지도 초기화 함수 */
     function initMap() {
       if (typeof naver !== 'undefined' && naver.maps) {
         var venueLocation = new naver.maps.LatLng(35.82526, 128.62017);
@@ -545,6 +576,66 @@
           map: map
         });
       }
+    }
+
+    /* 하객버스 팝업 지도 제어 */
+    let busMap = null;
+    let busMarker = null;
+
+    const busLocations = {
+      bus1: {
+        title: '한국원자력안전기술원 정문 앞',
+        subtitle: '1호차 탑승 위치 (오전 10시)',
+        lat: 36.37798,
+        lng: 127.37121
+      },
+      bus2: {
+        title: '만남의 광장 (북대전IC)',
+        subtitle: '2호차 탑승 위치 (오전 10시)',
+        lat: 36.41724,
+        lng: 127.38289
+      }
+    };
+
+    function openBusMapModal(busType) {
+      const data = busLocations[busType];
+      if (!data) return;
+
+      document.getElementById('bus-map-title').innerText = data.title;
+      document.getElementById('bus-map-subtitle').innerText = data.subtitle;
+      document.getElementById('map-modal').style.display = 'flex';
+
+      const targetCoord = new naver.maps.LatLng(data.lat, data.lng);
+
+      if (!busMap) {
+        busMap = new naver.maps.Map('bus-map', {
+          center: targetCoord,
+          zoom: 16,
+          zoomControl: true,
+          zoomControlOptions: {
+            position: naver.maps.Position.TOP_RIGHT
+          },
+          scrollWheel: true,
+          pinchZoom: true
+        });
+
+        busMarker = new naver.maps.Marker({
+          position: targetCoord,
+          map: busMap
+        });
+      } else {
+        busMarker.setPosition(targetCoord);
+      }
+
+      // 모달 표시 후 렌더링 리사이즈 보정
+      setTimeout(() => {
+        naver.maps.Event.trigger(busMap, 'resize');
+        busMap.setCenter(targetCoord);
+      }, 100);
+    }
+
+    function closeBusMapModal() {
+      document.getElementById('map-modal').style.display = 'none';
     }
 
     new Swiper(".busSwiper", { spaceBetween: 14, pagination: { el: ".bus-pagination", clickable: true }});
