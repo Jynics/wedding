@@ -227,7 +227,7 @@
   </style>
 </head>
 <body>
-  <!-- 배경음악 오디오 요소 (bgm.mp3) -->
+  <!-- 배경음악 오디오 요소 (첨부 음원을 bgm.mp3로 저장) -->
   <audio id="bgm" src="bgm.mp3" preload="auto" loop></audio>
 
   <!-- 음원 토글/음소거 버튼 -->
@@ -341,7 +341,6 @@
               <div style="display: flex; flex-direction: column; gap: 16px; font-size: 12.5px; line-height: 1.7;">
                 <div><p style="font-weight: 500; color: #18181B;">대전 → 대구 (가는편)</p><p style="color: #71717A;">탑승 장소: 한국원자력안전기술원</p><p style="color: #71717A;">출발 시간: 오전 10시</p></div>
               </div>
-              <!-- 네이버 지도 팝업 호출 -->
               <button onclick="openBusMapModal('bus1')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">탑승 위치 안내 보기</button>
             </div>
           </div>
@@ -349,9 +348,8 @@
             <div class="box-soft" style="display: flex; flex-direction: column; gap: 16px; text-align: left; padding: 24px 20px;">
               <div><p style="font-size: 11px; color: #A1A1AA; margin-bottom: 2px;">2호차</p><h4 style="font-size: 15px; color: #18181B;">하객버스 안내</h4></div>
               <div style="display: flex; flex-direction: column; gap: 16px; font-size: 12.5px; line-height: 1.7;">
-                <div><p style="font-weight: 500; color: #18181B;">대전 → 대구 (가는편)</p><p style="color: #71717A;">탑승 장소: 한국원자력연구원 국제원자력교육훈련센터(INTEC)</p><p style="color: #71717A;">출발 시간: 오전 10시</p></div>
+                <div><p style="font-weight: 500; color: #18181B;">대전 → 대구 (가는편)</p><p style="color: #71717A;">탑승 장소: 만남의 광장(북대전ic)</p><p style="color: #71717A;">출발 시간: 오전 10시</p></div>
               </div>
-              <!-- 네이버 지도 팝업 호출 -->
               <button onclick="openBusMapModal('bus2')" class="btn-minimal" style="width: 100%; margin-top: 4px; padding: 11px; border-radius: 8px;">탑승 위치 안내 보기</button>
             </div>
           </div>
@@ -429,18 +427,29 @@
         <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('2.jpg')"><img src="2.jpg" alt="2"></div>
       </div>
 
-      <div class="fade-item" style="position: relative; width: 100%; padding: 0 28px; display: flex; justify-content: center;">
+      <!-- 4.jpg (단독 전체 너비) -->
+      <div class="fade-item" style="width: 100%; padding: 0 28px; display: flex; justify-content: center;">
         <div class="placeholder-box aspect-3-4" style="width: 82%;" onclick="openImageModal('4.jpg')"><img src="4.jpg" alt="4"></div>
-        <div class="placeholder-box" style="width: 25%; aspect-ratio: 3 / 4; position: absolute; bottom: 30px; left: 28px; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none;" onclick="openImageModal('3.jpg')"><img src="3.jpg" alt="3"></div>
       </div>
 
       <div class="fade-item" style="padding: 0 0 0 50px; margin-top: 20px;">
         <div class="placeholder-box aspect-4-3" style="width: 100%;" onclick="openImageModal('5.jpg')"><img src="5.jpg" alt="5"></div>
       </div>
 
+      <!-- 6.jpg 왼쪽 하단에 3.jpg 스티커 부착 & 7.jpg 나란히 배치 -->
       <div class="fade-item" style="display: flex; gap: 10px; padding: 0 28px;">
-        <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('6.jpg')"><img src="6.jpg" alt="6"></div>
-        <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('7.jpg')"><img src="7.jpg" alt="7"></div>
+        <div style="position: relative; width: 50%;">
+          <div class="placeholder-box aspect-3-4" style="width: 100%;" onclick="openImageModal('6.jpg')">
+            <img src="6.jpg" alt="6">
+          </div>
+          <!-- 3.jpg 스티커 (왼쪽 하단 걸침) -->
+          <div class="placeholder-box" style="width: 48%; aspect-ratio: 3 / 4; position: absolute; bottom: -12px; left: -10px; z-index: 2; box-shadow: 0 4px 14px rgba(0,0,0,0.18); border: 2px solid #FFFFFF;" onclick="openImageModal('3.jpg')">
+            <img src="3.jpg" alt="3">
+          </div>
+        </div>
+        <div class="placeholder-box aspect-3-4" style="width: 50%;" onclick="openImageModal('7.jpg')">
+          <img src="7.jpg" alt="7">
+        </div>
       </div>
 
       <div class="fade-item" style="padding: 0 28px;">
@@ -586,14 +595,14 @@
       bus1: {
         title: '한국원자력안전기술원 정문 앞',
         subtitle: '1호차 탑승 위치 (오전 10시)',
-        lat: 36.3741092,
-        lng: 127.3676458
+        lat: 36.37798,
+        lng: 127.37121
       },
       bus2: {
-        title: '한국원자력연구원 국제원자력교육훈련센터(INTEC)',
+        title: '만남의 광장 (북대전IC)',
         subtitle: '2호차 탑승 위치 (오전 10시)',
-        lat: 36.4204963,
-        lng: 127.3747937
+        lat: 36.41724,
+        lng: 127.38289
       }
     };
 
@@ -627,7 +636,6 @@
         busMarker.setPosition(targetCoord);
       }
 
-      // 모달 표시 후 렌더링 리사이즈 보정
       setTimeout(() => {
         naver.maps.Event.trigger(busMap, 'resize');
         busMap.setCenter(targetCoord);
